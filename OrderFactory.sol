@@ -7,6 +7,7 @@ contract OrderFactory {
         Address sender;
         Address recipient;
         Position[] positions;
+        uint price;
     }
 
     struct Address {
@@ -24,5 +25,9 @@ contract OrderFactory {
     }
 
     Order[] public orders;
+
+    function createOrder() public {
+        // To be implemented
+    }
 
 }
