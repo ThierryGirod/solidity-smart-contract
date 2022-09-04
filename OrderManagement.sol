@@ -6,8 +6,14 @@ contract OrderManagement {
     // Custom event that is triggered when a new order is created
     event OrderCreated(uint id, Order order);
 
+    enum State {
+        OPEN,
+        PAYED
+    }
+
     // Custom object structure for order details
     struct Order {
+        State state;
         address receiver;
         string content;
         uint price;
@@ -36,7 +42,7 @@ contract OrderManagement {
     // Function to crate a new order with the amount of ether it requires
     function createOrder(string memory _content, uint _price) external payable {
         uint id = _getUniqueId();
-        Order memory order = Order(msg.sender, _content, _price);
+        Order memory order = Order(State.OPEN, msg.sender, _content, _price);
         orders[id] = order;
         emit OrderCreated(id, order);
     }
