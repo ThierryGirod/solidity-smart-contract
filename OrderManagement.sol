@@ -36,7 +36,9 @@ contract OrderManagement {
     // Function to crate a new order with the amount of ether it requires
     function createOrder(string memory _content, uint _price) external payable {
         uint id = _getUniqueId();
-        orders[id] = Order(msg.sender, _content, _price);
+        Order memory order = Order(msg.sender, _content, _price);
+        orders[id] = order;
+        emit OrderCreated(id, order);
     }
 
     // View order counter
