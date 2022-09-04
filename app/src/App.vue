@@ -1,32 +1,49 @@
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      isMetaMask: ethereum.isMetaMask,
+      isConnected: ethereum.isConnected(),
+      chainId: null,
+    };
+  },
+  mounted() {
+    ethereum
+      .request({ method: "eth_chainId" })
+      .then((result) => (this.chainId = result));
+    console.log(`the component is now mounted`);
+  },
+};
+</script>
 
-<template></template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<template>
+  <div>
+    <div>
+      <button class="bg-primary">test</button>
+    </div>
+    <div>
+      <table class="table-auto">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>isMetaMask</td>
+            <td>{{ isMetaMask }}</td>
+          </tr>
+          <tr>
+            <td>isConnected</td>
+            <td>{{ isConnected }}</td>
+          </tr>
+          <tr>
+            <td>chainId</td>
+            <td>{{ chainId }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
