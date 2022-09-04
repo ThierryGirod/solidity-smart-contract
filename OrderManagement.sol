@@ -6,6 +6,10 @@ contract OrderManagement {
     // Custom event that is triggered when a new order is created
     event OrderCreated(uint id, Order order);
 
+    // Custom event that is triggered when an order is payed
+    event OrderPayed(uint id);
+
+    // Custom order states
     enum State {
         OPEN,
         PAYED
@@ -66,6 +70,19 @@ contract OrderManagement {
         return order;
     }
 
-    function proofDelivery(uint _orderId)
+    // Function that when the proof of delivery is signed by the receiver pays the open amount
+    function proofDelivery(uint _orderId) external payable {
+        Order memory order = orders[_orderId];
+        require(msg.sender == order.receiver && msg.value == order.product.price);
+
+        // Pay the amount
+        (bool success, ) = owner.call{value: order.product.price}("");
+        require(success, "Failed to send Ether");
+
+        // Update the state of the order
+        order.state = State.PAYED;
+        orders[_orderId] = order;
+        emit OrderPayed(_orderId);
+    }
 
 }
