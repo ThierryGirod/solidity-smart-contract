@@ -41,6 +41,7 @@ contract OrderManagement {
 
     // Function to crate a new order with the amount of ether it requires
     function createOrder(string memory _content, uint _price) external payable {
+        require(msg.sender != owner);
         uint id = _getUniqueId();
         Order memory order = Order(State.OPEN, msg.sender, _content, _price);
         orders[id] = order;
@@ -49,7 +50,14 @@ contract OrderManagement {
 
     // View order counter
     function getOrderCounter() external view returns(uint) {
+        require(msg.sender == owner);
         return orderCounter;
+    }
+
+    function getOrder(uint _orderId) external view returns (Order memory) {
+        Order memory order = orders[_orderId];
+        require(msg.sender == order.receiver || msg.sender == owner);
+        return order;
     }
 
 }
