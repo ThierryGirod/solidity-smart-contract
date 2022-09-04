@@ -15,6 +15,11 @@ contract OrderManagement {
     struct Order {
         State state;
         address receiver;
+        Product product;
+    }
+
+    // Custom object structure for product details
+    struct Product {
         string content;
         uint price;
     }
@@ -40,10 +45,10 @@ contract OrderManagement {
     }
 
     // Function to crate a new order with the amount of ether it requires
-    function createOrder(string memory _content, uint _price) external payable {
+    function createOrder(string memory _content, uint _price) external {
         require(msg.sender != owner);
         uint id = _getUniqueId();
-        Order memory order = Order(State.OPEN, msg.sender, _content, _price);
+        Order memory order = Order(State.OPEN, msg.sender, Product(_content, _price));
         orders[id] = order;
         emit OrderCreated(id, order);
     }
@@ -54,10 +59,13 @@ contract OrderManagement {
         return orderCounter;
     }
 
+    // View an order
     function getOrder(uint _orderId) external view returns (Order memory) {
         Order memory order = orders[_orderId];
         require(msg.sender == order.receiver || msg.sender == owner);
         return order;
     }
+
+    function proofDelivery(uint _orderId)
 
 }
