@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "../App.vue";
 import ShopDemo from "../components/ShopDemo.vue";
 import DeliveryNote from "../components/DeliveryNote.vue";
+import TrackTraceDemo from "../components/TrackTraceDemo.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/shop",
       name: "shop",
       component: ShopDemo,
+    },
+    {
+      path: "/track",
+      name: "track",
+      component: TrackTraceDemo,
     },
     {
       path: "/delivery",

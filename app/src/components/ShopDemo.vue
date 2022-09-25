@@ -2,10 +2,7 @@
   <div>
     <div class="container py-3">
       <main>
-        <div
-          class="row row-cols-1 row-cols-md-3 mb-3 text-center"
-          v-if="!connected"
-        >
+        <div class="d-flex flex-column" v-if="!connected">
           <button class="btn btn-primary" @click="connect">
             Connect Wallet
           </button>

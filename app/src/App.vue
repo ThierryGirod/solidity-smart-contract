@@ -14,6 +14,9 @@ export default {
             <router-link to="/shop" class="nav-link">Shop Demo</router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/track" class="nav-link">Track Trace</router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/delivery" class="nav-link"
               >Delivery Note</router-link
             >
