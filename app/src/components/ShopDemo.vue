@@ -1,10 +1,17 @@
-<script setup></script>
-
 <template>
   <div>
     <div class="container py-3">
       <main>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div
+          class="row row-cols-1 row-cols-md-3 mb-3 text-center"
+          v-if="!connected"
+        >
+          <button class="btn btn-primary">Connect wallet</button>
+        </div>
+        <div
+          class="row row-cols-1 row-cols-md-3 mb-3 text-center"
+          v-if="connected"
+        >
           <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
               <div class="card-header py-3">
@@ -62,3 +69,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "ShopDemo",
+
+  data() {
+    return {
+      connected: false,
+      contractResult: "",
+    };
+  },
+};
+</script>
