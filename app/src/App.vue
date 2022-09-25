@@ -1,4 +1,9 @@
-<script setup></script>
+<script>
+import Web3 from "web3";
+export default {
+  name: "App",
+};
+</script>
 
 <template>
   <div>

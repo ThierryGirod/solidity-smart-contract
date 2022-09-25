@@ -62,7 +62,7 @@ contract OrderManagement {
         require(msg.sender == owner);
         return orderCounter;
     }
-
+    
     // View an order
     function getOrder(uint _orderId) external view returns (Order memory) {
         Order memory order = orders[_orderId];
