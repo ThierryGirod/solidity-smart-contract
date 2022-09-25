@@ -49,8 +49,8 @@ contract OrderManagement {
     }
 
     // Function to crate a new order with the amount of ether it requires
-    function createOrder(string memory _content, uint _price) external {
-        require(msg.sender != owner);
+    function createOrder(string memory _content, uint _price) external payable {
+        require(msg.sender != owner && msg.value == _price);
         uint id = _getUniqueId();
         Order memory order = Order(State.OPEN, msg.sender, Product(_content, _price));
         orders[id] = order;
@@ -71,9 +71,9 @@ contract OrderManagement {
     }
 
     // Function that when the proof of delivery is signed by the receiver pays the open amount
-    function proofDelivery(uint _orderId) external payable {
+    function proofDelivery(uint _orderId) external {
         Order memory order = orders[_orderId];
-        require(msg.sender == order.receiver && msg.value == order.product.price);
+        require(msg.sender == order.receiver);
 
         // Pay the amount
         (bool success, ) = owner.call{value: order.product.price}("");
