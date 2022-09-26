@@ -23,8 +23,48 @@
           Search
         </button>
       </div>
-      <div>
-        {{ order }}
+      <div v-if="this.order">
+        <div class="d-flex flex-column">
+          <div class="m-2 text-center">
+            <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">Order details</h4>
+              </div>
+              <div class="card-body">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">State</th>
+                      <td>
+                        <span
+                          class="badge"
+                          :class="
+                            order[0] == 1
+                              ? 'bg-success'
+                              : 'bg-warning text-dark'
+                          "
+                          >{{ order[0] == 1 ? "Payed" : "Open" }}</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Receiver</th>
+                      <td>{{ order[1] }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Product</th>
+                      <td>{{ order[2][0] }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Price</th>
+                      <td>{{ order[2][1] }} Wei</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -52,8 +92,7 @@ export default {
       contract.methods
         .getOrder(this.orderId)
         .call()
-        .then((result) => console.log(result));
-      this.order = this.orderId;
+        .then((result) => (this.order = result));
     },
   },
 };
